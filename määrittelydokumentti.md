@@ -6,7 +6,7 @@
 
 ### Ratkaistava ongelma
 
-- Aion tehdä miinaharavan ratkaisijan käyttämällä jotakin aihe-ehdotuksissa annetun David Becerran kandidaatin tutkielman [1] algoritmia
+- Aion tehdä miinaharavan ratkaisijan käyttämällä jotakin aihe-ehdotuksissa annetun David Becerran kandidaatin tutkielman [1] algoritmia (Esimerkiksi single-point algoritmia, mutta tällä hetkellä en pääse käsiksi tutkielmaan, sillä verkkosivu on alhaalla)
 - Ideana tutkia jokaisen eri ruudun mahdollisuus olla miina, ja sen perusteella päättää, että avataanko ruutu
 
 ### Syötteet
