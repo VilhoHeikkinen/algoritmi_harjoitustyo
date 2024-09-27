@@ -1,5 +1,6 @@
 from minesweeper.minesweeperapp import MinesweeperApp
 from utils.firstmove import firstmove
+from utils.random_square import select_random_square
 import time
 
 
@@ -16,6 +17,7 @@ class DoubleSetSinglePoint:
         
         self.game = game
         self.boardrows, self.boardcols = game.get_dimensions()
+        self.probed = [[0 for i in range(self.boardcols)] for j in range(self.boardrows)]
         
     def doublesetsinglepoint(self):
         """Ajaa DSSP-algoritmin
@@ -29,7 +31,7 @@ class DoubleSetSinglePoint:
         q = set()
         while self.game.gameover is False:
             if len(s) == 0:
-                break
+                x = select_random_square(self.game.get_grid())
             while len(s) > 0:
                 x = s.pop()
                 self.game.open_square(x[0],x[1])
@@ -110,11 +112,12 @@ class DoubleSetSinglePoint:
             x (tuple): ruutu, jonka merkkaamattomat naapurit palautetaan
             
         Returns:
-            neighbours (list): lista, joka sisältää merkkaamattoman naapurit
+            neighbours (list): lista, joka sisältää merkkaamattomat naapurit
         """
         
         row = x[0]
         col = x[1]
+        self.probed[row][col] == 1
         board = self.game.get_grid()
         moves = [(-1,0), (-1,1), (0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1)]
         neighbours = list()
@@ -122,6 +125,6 @@ class DoubleSetSinglePoint:
             new_row = row + move[0]
             new_col = col + move[1]
             if new_row >= 0 and new_row <= self.boardrows-1 and new_col >= 0 and new_col <= self.boardcols-1:
-                if board[new_row][new_col] != -2:
+                if board[new_row][new_col] != -2 and self.probed[new_row][new_col] == 0:
                     neighbours.append((new_row, new_col))
         return neighbours
