@@ -5,7 +5,7 @@ class MinesweeperApp:
     """Luokka, jonka avulla voidaan pelata miinaharavaa
     """
     
-    def __init__(self, size, minecount):
+    def __init__(self, size, minecount, wait_after_print=False):
         """Luokan konstruktori, joka luo uuden pelin, tai jatkaa peliä annetusta vaiheesta
         
         Args: 
@@ -15,6 +15,8 @@ class MinesweeperApp:
         
         self.ms = Minesweeper(size, minecount)
         self.gameover = False
+        self.win = False
+        self.wait_after_print = wait_after_print
         
     def new_game(self):
         """Aloittaa uuden interaktiivisen pelin
@@ -42,8 +44,12 @@ class MinesweeperApp:
             self.ms.open_square(row, col)
             self.gameover = self.ms.gameover
             self.print_grid()
-            sleep(3)
-        
+            if self.wait_after_print is True:
+                sleep(1)
+            if self.ms.win:
+                self.win = True
+                print("voittaja")
+            
     def mark_square(self, row, col):
         """Merkkaa valitun ruudun
 
@@ -54,7 +60,6 @@ class MinesweeperApp:
         
         self.ms.mark_square(row, col)
         self.print_grid()
-        sleep(3)
 
     def get_grid(self):
         """Palauttaa pelikentän kaksiulotteisena listana

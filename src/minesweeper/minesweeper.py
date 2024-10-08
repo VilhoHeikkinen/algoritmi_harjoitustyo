@@ -17,9 +17,14 @@ class Minesweeper:
         self.cols = size[1]
         self.minecount = minecount
         self.values, self.opened, self.marked = self.set_grid()
-        self.set_mines()
-        self.count_values()
+        self.opened_count = 0
+        self.to_open_count = (self.rows*self.cols) - minecount
+        print(self.to_open_count)
+        # self.set_mines()
+        # self.count_values()
+        self.first_open = True
         self.gameover = False
+        self.win = False
         
     def set_grid(self):
         """Alustaa kentän ruutujen arvot
@@ -36,8 +41,11 @@ class Minesweeper:
        
         return values, opened, marked
 
-    def set_mines(self):
+    def set_mines(self, square):
         """Asettaa kentälle miinat
+        
+        Args:
+            square (tuple): ensimmäisen avauksen koordinaatit
         """
       
         count = 0
@@ -46,12 +54,10 @@ class Minesweeper:
             # miinalle koordinaatit
             num = randint(0, self.rows*self.cols - 1)
             mine_r = num % self.rows
-            mine_s = num // self.cols
+            mine_c = num // self.cols
             
-            
-            # print(mine_r, mine_s)
-            if self.values[mine_r][mine_s] != -1:
-                self.values[mine_r][mine_s] = -1
+            if self.values[mine_r][mine_c] != -1 and (mine_r, mine_c) != square:
+                self.values[mine_r][mine_c] = -1
                 count += 1
                 
     def count_values(self):
@@ -83,11 +89,20 @@ class Minesweeper:
             col: sarake, jolta ruutu avataan
         """
         
+        if self.first_open is True:
+            self.set_mines((row, col))
+            self.count_values()
+            self.first_open = False
         
         self.opened[row][col] = 1
+        self.opened_count += 1
         
         if self.values[row][col] == -1:
             self.gameover = True
+            return
+        
+        if self.opened_count == self.to_open_count:
+            self.win = True
             return
         
         if self.values[row][col] == 0:
