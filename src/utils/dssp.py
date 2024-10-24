@@ -1,4 +1,3 @@
-from minesweeper.minesweeperapp import MinesweeperApp
 from utils.firstmove import firstmove
 from utils.random_square import select_random_square
 import time
@@ -22,26 +21,30 @@ class DoubleSetSinglePoint:
         
     def doublesetsinglepoint(self):
         """Ajaa DSSP-algoritmin
+        
+        Returns:
+            (boolean): True, jos peli voitettiin, False jos hävittiin
         """
             
-        # print(game.get_grid())
-        # game.print_grid()
         opener = firstmove()
         s = set()
         s.add(opener)
         q = set()
         while self.game.gameover is False:
             if len(s) == 0:
-                x = select_random_square(q, self.game.get_grid())
+                x = select_random_square(self.game.get_grid())
+                if x is False:
+                    # self.game.print_grid(debug=True)
+                    return False
                 s.add(x)
             while len(s) > 0:
                 x = s.pop()
                 self.game.open_square(x[0],x[1])
                 if self.game.win is True:
-                    return
+                    return True
                 if self.game.gameover:
                     self.game.print_grid()
-                    return
+                    return False
                 if self.isAFN(x) is True:
                     for nb in self.unmarked_neighbours(x):
                         s.add(nb)

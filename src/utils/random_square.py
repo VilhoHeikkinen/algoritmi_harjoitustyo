@@ -1,6 +1,6 @@
 from random import choice
 
-def select_random_square(squares, board):
+def select_random_square(board):
     """Valitsee satunnaisesti yhden peitetyn ruudun
     
     Args:
@@ -11,8 +11,16 @@ def select_random_square(squares, board):
     """
     
     covered = list()
-    for sq in squares:
-        if board[sq[0]][sq[1]] == -1:
-            covered.append(sq)
-    random_square = choice(covered)
+    rows = len(board)
+    cols = len(board[0])
+    for row in range(rows):
+        for col in range(cols):
+            if board[row][col] == -1:
+                covered.append((row,col))
+    try:
+        random_square = choice(covered)
+    except IndexError:
+        print(covered)
+        # print(board)
+        return False
     return random_square

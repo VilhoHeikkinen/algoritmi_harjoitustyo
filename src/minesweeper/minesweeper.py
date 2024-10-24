@@ -19,7 +19,6 @@ class Minesweeper:
         self.values, self.opened, self.marked = self.set_grid()
         self.opened_count = 0
         self.to_open_count = (self.rows*self.cols) - minecount
-        print(self.to_open_count)
         # self.set_mines()
         # self.count_values()
         self.first_open = True
