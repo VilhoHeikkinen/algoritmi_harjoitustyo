@@ -99,7 +99,7 @@ class MinesweeperApp:
         if self.gui:
             self.gui.draw_grid(self.ms.values, self.ms.opened, self.ms.marked)
             if self.wait_after_print is True:
-                sleep(0.2)
+                sleep(0.4)
         else:
             for i in range(self.ms.rows):
                 print(" " + ((4*self.ms.cols)-1)*"—" + " ")
