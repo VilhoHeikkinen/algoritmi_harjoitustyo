@@ -53,7 +53,6 @@ class MinesweeperApp:
             self.ms.open_square(row, col)
             self.gameover = self.ms.gameover
             if self.disable_printing is False:
-                print("asd")
                 self.print_grid()
             if self.ms.win:
                 self.win = True
