@@ -117,7 +117,7 @@ class MinesweeperApp:
                 print(line)
             print(" " + ((4*self.ms.cols)-1)*"—" + " ")
             if self.wait_after_print is True:
-                sleep(0.2)
+                sleep(0.5)
                 
     def handle_outcome(self, win):
         """Käsittelee pelin tuloksen. Ilmoittaa voitosta/häviöstä

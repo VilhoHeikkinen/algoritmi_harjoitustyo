@@ -4,24 +4,33 @@ class Minesweeper:
     """Luokka, joka toteuttaa miinaharavan toiminnallisuuden
     """
 
-    def __init__(self, size, minecount):
+    def __init__(self, size, minecount, mine_locations=None):
         """Luokan konstruktori, joka luo uuden pelin, tai jatkaa peliä annetusta vaiheesta
         
         Args: 
-            size: miinaharavan pelikentän koko tuplena (n x m)
-            minecount: miinojen määrä kentällä
+            size (tuple): miinaharavan pelikentän koko tuplena (n x m)
+            minecount (int): miinojen määrä kentällä
+            board (list): valinnainen valmis kenttä miinaharavalle kaksiulotteisena taulukkona
         """
 
         self.size = size
         self.rows = size[0]
         self.cols = size[1]
         self.minecount = minecount
+        if self.minecount >= self.rows*self.cols:
+            raise ValueError("Annoit liian suuren määrän miinoja!")
         self.values, self.opened, self.marked = self.set_grid()
+        if mine_locations is not None:
+            self.set_values_for_input_mines(mine_locations)
+            self.count_values()
         self.opened_count = 0
         self.to_open_count = (self.rows*self.cols) - minecount
         # self.set_mines()
         # self.count_values()
-        self.first_open = True
+        if not mine_locations:
+            self.set_mine_locations = True
+        else:
+            self.set_mine_locations = False
         self.gameover = False
         self.win = False
         
@@ -39,6 +48,16 @@ class Minesweeper:
         marked = [[0 for i in range(self.cols)] for j in range(self.rows)]
        
         return values, opened, marked
+    
+    def set_values_for_input_mines(self, mines):
+        """Alustaa kentän ruutujen arvot annetulle pelikentälle
+
+        Args:
+            mines (list): lista pommien koordinaateista tupleina
+        """
+
+        for mine in mines:
+            self.values[mine[0]][mine[1]] = -1
 
     def set_mines(self, square):
         """Asettaa kentälle miinat
@@ -46,14 +65,13 @@ class Minesweeper:
         Args:
             square (tuple): ensimmäisen avauksen koordinaatit
         """
-      
+
         count = 0
         while count < self.minecount:
             # Arvotaan satunnainen luku, josta saadaan uudelle
             # miinalle koordinaatit
-            num = randint(0, self.rows*self.cols - 1)
-            mine_r = num % self.rows
-            mine_c = num // self.cols
+            mine_r = randint(0, self.rows-1)
+            mine_c = randint(0, self.cols-1)
             
             if self.values[mine_r][mine_c] != -1 and (mine_r, mine_c) != square:
                 self.values[mine_r][mine_c] = -1
@@ -88,10 +106,10 @@ class Minesweeper:
             col: sarake, jolta ruutu avataan
         """
         
-        if self.first_open is True:
+        if self.set_mine_locations is True:
             self.set_mines((row, col))
             self.count_values()
-            self.first_open = False
+            self.set_mine_locations = False
         
         self.opened[row][col] = 1
         self.opened_count += 1

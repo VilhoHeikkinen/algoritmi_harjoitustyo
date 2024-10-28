@@ -3,3 +3,9 @@ Statsit 1000 ajolla:
 Beginner wins: 709
 Intermediate wins: 356
 Expert wins: 0
+
+Statsit 10 000 ajolla:
+
+Beginner wins: 7115
+Intermediate wins: 3805
+Expert wins: 101
