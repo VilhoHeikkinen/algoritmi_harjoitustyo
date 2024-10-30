@@ -33,8 +33,12 @@ class MinesweeperGUI:
         for base, dirs, files in os.walk(img_location):
             for file in files:
                 name = file.split(".")[0] # Otetaan tiedoston nimi ilman .png -päätettä
+                if name == "voitto":
+                    size = (200, 200)
+                else:
+                    size = (self.square_size, self.square_size)
                 self.imgs[name] = pygame.transform.scale(pygame.image.load(img_location + file),
-                                                         (self.square_size, self.square_size))
+                                                         size)
         
     def draw_grid(self, values, opened, marked):
         """Piirtää pelilaudan ruudulle
@@ -62,8 +66,8 @@ class MinesweeperGUI:
     def draw_winner(self):
         """Ilmoittaa voitosta ruudulla"""
         
-        img = pygame.transform.scale(self.imgs["voitto"], (100, 100))
-        pos = ((self.screen_width//2) - 50, (self.screen_height//2) - 50)
+        img = pygame.transform.scale(self.imgs["voitto"], (200, 200))
+        pos = ((self.screen_width//2) - 100, (self.screen_height//2) - 100)
         self.screen.blit(img, pos)
         pygame.display.flip()
         

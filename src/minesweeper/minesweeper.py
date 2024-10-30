@@ -10,7 +10,7 @@ class Minesweeper:
         Args: 
             size (tuple): miinaharavan pelikentän koko tuplena (n x m)
             minecount (int): miinojen määrä kentällä
-            board (list): valinnainen valmis kenttä miinaharavalle kaksiulotteisena taulukkona
+            mine_locations (list): lista tupleja, jotka määrääväät pommien paikat kentällä
         """
 
         self.size = size

@@ -45,7 +45,7 @@ class DoubleSetSinglePoint:
                 if self.game.gameover:
                     self.game.print_grid()
                     return False
-                if self.isAFN(x) is True:
+                if self.is_afn(x) is True:
                     for nb in self.unmarked_neighbours(x):
                         s.add(nb)
                 else:
@@ -54,7 +54,7 @@ class DoubleSetSinglePoint:
                         q.add(sq)
             to_rm = []
             for sq in q:
-                if self.isAMN(sq):
+                if self.is_amn(sq):
                     for nb in self.unmarked_neighbours(sq):
                         self.game.mark_square(nb[0], nb[1])
                     to_rm.append(sq)
@@ -62,14 +62,14 @@ class DoubleSetSinglePoint:
                 q.remove(sq)
             to_rm = []
             for sq in q:
-                if self.isAFN(sq):
+                if self.is_afn(sq):
                     for nb in self.unmarked_neighbours(sq):
                         s.add(nb)
                     to_rm.append(sq)
             for sq in to_rm:
                 q.remove(sq)
 
-    def isAFN(self, x):
+    def is_afn(self, x):
         """Tutkii, ovatko ruudun viereiset, ei-merkityt ruudut tyhjiä. Jos merkittyjä ruutuja on 
            yhtä paljon kuin tutkittavan ruudun arvo on, niin palauttaa True.
         
@@ -96,7 +96,7 @@ class DoubleSetSinglePoint:
                     count += 1
         return xvalue == count
     
-    def isAMN(self, x):
+    def is_amn(self, x):
         """Tutkii, ovatko ruudun viereiset, ei-merkityt ruudut pommeja. Jos avaamattomia ja merkittyjä ruutuja on yhtä paljon
            kuin tutkittavan ruudun arvo on, niin palauttaa True.
 

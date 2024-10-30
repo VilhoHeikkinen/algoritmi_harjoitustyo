@@ -1,0 +1,3 @@
+[run]
+source = src
+omit = src/**/__init__.py,src/testing/**,src/minesweeper/minesweeperapp.py,src/minesweeper/gui.py,src/run*,src/utils/firstmove.py,src/utils/random_square.py,src/main.py

@@ -6,15 +6,19 @@ class MinesweeperApp:
     """Luokka, jonka avulla voidaan pelata miinaharavaa
     """
     
-    def __init__(self, size, minecount, wait_after_print=False, enable_gui=False, disable_printing=False):
+    def __init__(self, size, minecount, wait_after_print=False, enable_gui=False, disable_printing=False, mine_locations=None):
         """Luokan konstruktori, joka luo uuden pelin, tai jatkaa peliä annetusta vaiheesta
         
         Args: 
             size: miinaharavan pelikentän koko tuplena (n x m)
             minecount: miinojen määrä kentällä
+            wait_after_print: odottaa hetken printin jälkeen
+            enable_gui: ottaa graafisen käyttöliittymän käyttöön
+            disable_printing: poistaa kentän tulostuksen käytöstä
+            mine_locations: lista tupleja, jotka määrääväät pommien paikat kentällä
         """
         
-        self.ms = Minesweeper(size, minecount)
+        self.ms = Minesweeper(size, minecount, mine_locations=mine_locations)
         self.gameover = False
         self.win = False
         self.wait_after_print = wait_after_print
@@ -24,22 +28,6 @@ class MinesweeperApp:
             self.gui.draw_grid(self.ms.values, self.ms.opened, self.ms.marked)
         else:
             self.gui = False
-        
-    def new_game(self):
-        """Aloittaa uuden interaktiivisen pelin
-        """
-        
-        if self.disable_printing is False:
-            self.print_grid()
-        while True:
-            row, col = input("Syötä koordinaatit (r,s): ").split()
-            
-            self.open_square(int(row), int(col))
-            if self.disable_printing is False:
-                self.print_grid()
-            
-            if self.ms.gameover is True:
-                break
         
     def open_square(self, row, col):
         """Avaa halutun ruudun kentältä
