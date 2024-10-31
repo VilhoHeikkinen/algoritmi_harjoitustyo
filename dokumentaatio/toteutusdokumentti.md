@@ -24,9 +24,36 @@ vaan siirretään settiin S, jos niistä ollaan varmoja [2].
   - Viereiset ruudut tutkitaan käyttämällä metodeja is_afn() (all free neighbours), is_amn() (all mine/mark neighbours) sekä unmarked_neighbours()
   - Kaikki näistä tutkivat ajassa O(1) yhden ruudun tilanteen viereisten ruutujen suhteen
   - unresolved_squares() etsii kaikki ruudut, joihin on laudalla suora yhteys (ei yhtään peitettyjä ruutuja välissä), rekursiivisesti ajassa O(nm), missä kentän koko on (n x m)
+- Algoritmin arvaaminen on toteutettu täysin satunnaisesti, eli arvaustilanteessa valitaan joku avaamaton ruutu riippumatta sen sijainnista tai viereisistä ruuduuista
 
-Implementoitu algoritmi on suorituskyvyltään seuraavanlainen:
+Implementoitu algoritmi on suorituskyvyltään seuraavanlainen (dokumentaatio/stats.txt):
+```
+Statsit 1000 ajolla:
 
+Beginner wins: 709
+Intermediate wins: 356
+Expert wins: 0
+
+Statsit 10 000 ajolla:
+
+Beginner wins: 7115
+Intermediate wins: 3805
+Expert wins: 101
+```
+
+Huomataan siis, että beginner-tasolla peli voitetaan ~71% ajasta, intermediate tasolla ~38% ajasta ja expert-tasolla ~1% ajasta.
+
+Algoritmi on siis suhteellisen hyvä pelaamaan miinaharavaa, ottaen huomioon miinaharavan luonteen. Miinaharavassa on joskus pakko arvata, mikä estää täydellisen voittoprosentin millään algoritmilla.
+
+### Mahdollisia parannuksia
+
+- Algoritmia voisi parantaa esimerkiksi parannetulla arvaamisella. Jos esimerkiksi on avattu ruutu, jonka arvo on 1, ja sen vieressä on kaksi avaamatonta ruutua, niin näistä toinen on miina 1/2 todennäköisyydellä.
+  Jos taas saman arvoltaan 1 ruudun vieressä on kolme avaamatonta ruutua, niin näistä yksi on miina 1/3 todennäköisyydellä.
+- Varsinkin algoritmin koodi voisi olla siistimpää, ja esimerkiksi naapurien hakemiseen voisi lisätä metodin, jotta metodeissa is_afn(), is_amn() ja unmarked_neighbours() ei haettaisi näitä erikseen.
+
+### Tekoälyn käyttö
+
+- En käyttänyt projektia tehdessä lainkaan laajoja kielimalleja.
 
 # Lähteet
 - [1] Miinaharavan valmis projektipohja [https://github.com/TiraLabra/minesweeper](https://github.com/TiraLabra/minesweeper)
