@@ -3,6 +3,13 @@
 ## Kattavuusraportti
 ![image](https://github.com/user-attachments/assets/f04d48ff-806d-4b6c-b6de-6b166b022241)
 
+## Testien toistaminen
+Testit voidaan toistaa ajamalla seuraavat komennot projektin juurihakemistossa:
+
+```coverage run --branch -m pytest src```
+
+```coverage report -m```
+
 ## Yksikkötestatut ominaisuudet
 
 ### Miinaharavan metodit
@@ -31,4 +38,25 @@ Naapureiden tutkimisen testaaminen on hoidettu käyttämällä samaa tilannetta:
 ## Empiirinen testaus
 
 - Graafinen käyttöliittymä sekä terminaaliin printattu käyttöliittymä huomattu toimivaksi peliä ajettaessa
-- Algoritmin suoriutuminen tilastollisesti
+- Algoritmin suoriutuminen tilastollisesti (dokumentaatio/stats.txt)
+```
+Statsit 1000 ajolla:
+
+Beginner wins: 709
+Intermediate wins: 356
+Expert wins: 0
+
+Statsit 10 000 ajolla:
+
+Beginner wins: 7115
+Intermediate wins: 3805
+Expert wins: 101
+```
+David Becerran tutkielman [1] tilastot DSSP-algoritmin suoriutumisesta:
+
+![image](https://github.com/user-attachments/assets/1c65b502-c05c-465e-9e0b-f815cf955b7d)
+
+Tilastot ovat siis lähes samat.
+
+## Lähteet
+- [1] David Becerran kandidaatin tutkielma [https://dash.harvard.edu/handle/1/14398552](https://dash.harvard.edu/handle/1/14398552)
