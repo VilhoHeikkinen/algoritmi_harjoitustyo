@@ -24,6 +24,8 @@ Basic input stuff:
   --disable-gui         Disable pygame GUI and output the game to terminal
 ```
 
+Kun peliä ajetaan käyttäen graafista käyttöliitymää, niin uusi peli voidaan aloittaa painamalla välilyöntiä.
+
 ### Testien ajaminen
 Testit voidaan toistaa ajamalla seuraavat komennot projektin juurihakemistossa:
 
