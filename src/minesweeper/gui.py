@@ -49,6 +49,7 @@ class MinesweeperGUI:
             marked (list): kaksiulotteinen taulukko, jossa merkitty merkatut/liputetut ruudut
         """
         
+        pygame.event.pump()
         for row in range(self.rows):
             for col in range(self.cols):
                 if opened[row][col] == 1:
